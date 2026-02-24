@@ -5,7 +5,7 @@ import { motion, type Transition} from 'framer-motion'
 const SUBTITLES = [
   'CS Student @ Universiti Sains Malaysia',
   'Intelligent Computing Major',
-  'ML · AI Systems · Web Dev',
+  'ML · AI Systems · Software Engineering',
 ]
 
 function useTypedText() {
