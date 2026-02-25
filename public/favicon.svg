@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#03050f"/>
+  <defs>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <text
+    x="32"
+    y="43"
+    text-anchor="middle"
+    font-family="'Orbitron', 'Arial Black', sans-serif"
+    font-size="28"
+    font-weight="900"
+    letter-spacing="2"
+    fill="#00f5ff"
+    filter="url(#glow)"
+  >JM</text>
+</svg>

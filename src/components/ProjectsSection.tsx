@@ -7,7 +7,7 @@ const PROJECTS = [
   {
     num: 'PROJECT_01',
     name: 'LACIAL',
-    desc: 'A blockchain-based charity platform ensuring transparent, trustless donation flows via smart contracts. Built under hackathon pressure — took home a finalist spot at Varsity Hackathon 2025.',
+    desc: 'A blockchain-based charity platform ensuring transparent, trustless donation flows via smart contracts.',
     tech: ['TypeScript', 'React', 'Vite', 'TailwindCSS', 'Firebase', 'Hardhat', 'Blockchain'],
     github: 'https://github.com/uruha8Rushia/VHack2025-Lacial',
     featured: true,

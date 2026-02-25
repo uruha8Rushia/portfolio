@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { IoFootball, IoBasketball } from 'react-icons/io5'
-import { GiShuttlecock, GiCrossedSwords, GiNinjaStar } from 'react-icons/gi'
-import { BsController, BsLightningChargeFill } from 'react-icons/bs'
-import { FaRocket, FaMusic, FaMicrophone, FaGuitar, FaHeadphones, FaHeart } from 'react-icons/fa'
+import { IoFootball, IoBasketball, IoTrainSharp } from 'react-icons/io5'
+import { GiShuttlecock, GiVolleyballBall, GiSpiderWeb, GiSwordsEmblem, GiKatana, GiAk47, GiCrosshair, GiStoneWall , GiFist, GiVikingHelmet } from 'react-icons/gi'
+import { BsController, BsTv } from 'react-icons/bs'
+import { FaHeart, FaRunning } from 'react-icons/fa'
 
 /* ── HOBBY DATA ──────────────────────────────────────── */
 const HOBBIES: {
@@ -24,9 +24,11 @@ const HOBBIES: {
     glow: 'var(--glow-cyan)',
     borderColor: 'rgba(0,245,255,0.25)',
     items: [
-      { icon: <IoFootball size={16} />,    name: 'Football',   sub: 'The beautiful game' },
-      { icon: <IoBasketball size={16} />,  name: 'Basketball', sub: 'Street & court' },
-      { icon: <GiShuttlecock size={16} />, name: 'Badminton',  sub: 'Smash & rally' },
+      { icon: <IoFootball size={16} />,       name: 'Football',   sub: 'The beautiful game' },
+      { icon: <IoBasketball size={16} />,     name: 'Basketball', sub: 'Street & court' },
+      { icon: <GiShuttlecock size={16} />,    name: 'Badminton',  sub: 'Smash & rally' },
+      { icon: <GiVolleyballBall size={16} />, name: 'Volleyball', sub: 'Spike & serve' },
+      { icon: <FaRunning size={16} />,        name: 'Jogging',    sub: 'Early morning runs' },
     ],
   },
   {
@@ -37,71 +39,29 @@ const HOBBIES: {
     glow: 'var(--glow-mag)',
     borderColor: 'rgba(255,0,160,0.25)',
     items: [
-      { icon: <FaRocket size={16} />,        name: 'Honkai: Star Rail', sub: 'Turn-based RPG' },
-      { icon: <GiCrossedSwords size={16} />, name: 'Elden Ring',        sub: 'Soulslike Action' },
-      { icon: <GiNinjaStar size={16} />,     name: 'Sekiro',            sub: 'Soulslike Action' },
+      { icon: <IoTrainSharp  size={16} />, name: 'Honkai: Star Rail', sub: 'Turn-based RPG' },
+      { icon: <GiSwordsEmblem  size={16} />,    name: 'Elden Ring',        sub: 'Soulslike Action' },
+      { icon: <GiKatana size={16} />,        name: 'Sekiro',            sub: 'Soulslike Action' },
+      { icon: <GiAk47 size={16} />,          name: 'CS2',               sub: 'Tactical Shooter' },
+      { icon: <GiCrosshair size={16} />,      name: 'Valorant',          sub: 'Tactical Shooter' },
     ],
   },
   {
     id: 'anime',
-    icon: <BsLightningChargeFill size={20} />,
-    title: 'ANIME',
+    icon: <BsTv size={20} />,
+    title: 'MOVIES & ANIME',
     color: 'var(--yellow)',
     glow: '0 0 10px #ffe600, 0 0 30px #ffe60044',
     borderColor: 'rgba(255,230,0,0.25)',
     items: [
-      { icon: <GiCrossedSwords size={16} />,      name: 'Attack on Titan',          sub: 'Action' },
-      { icon: <BsLightningChargeFill size={16} />, name: 'My Hero Academia',          sub: 'Shonen' },
-      { icon: <FaHeart size={16} />,               name: 'Teasing Master Takagi-san', sub: 'Romance' },
-    ],
-  },
-  {
-    id: 'music',
-    icon: <FaMusic size={20} />,
-    title: 'MUSIC',
-    color: 'var(--cyan)',
-    glow: 'var(--glow-cyan)',
-    borderColor: 'rgba(0,245,255,0.25)',
-    items: [
-      { icon: <FaMicrophone size={16} />, name: 'AccuseFive',  sub: '告五人 · Mandopop' },
-      { icon: <FaGuitar size={16} />,     name: 'One Ok Rock', sub: 'J-Rock' },
-      { icon: <FaHeadphones size={16} />, name: 'The Weeknd',  sub: 'R&B' },
+      { icon: <GiStoneWall  size={16} />,             name: 'Attack on Titan',              sub: 'Action · Anime' },
+      { icon: <GiFist size={16} />,              name: 'My Hero Academia',              sub: 'Shonen · Anime' },
+      { icon: <FaHeart size={16} />,             name: 'Teasing Master Takagi-san',    sub: 'Romance · Anime' },
+      { icon: <GiVikingHelmet size={16} />,       name: 'Loki',                          sub: 'Sci-Fi · Marvel' },
+      { icon: <GiSpiderWeb size={16} />,         name: 'Spider-Man: Across the Spider-Verse', sub: 'Animation · Marvel' },
     ],
   },
 ]
-
-/* ── EQUALIZER (music decoration) ───────────────────── */
-function Equalizer({ color }: { color: string }) {
-  return (
-    <div style={{ display: 'flex', gap: 2, alignItems: 'flex-end', height: 14 }}>
-      {[
-        { speed: '0.6s', h: '10px', init: '4px' },
-        { speed: '0.4s', h: '14px', init: '8px' },
-        { speed: '0.7s', h: '8px',  init: '6px' },
-        { speed: '0.5s', h: '12px', init: '10px' },
-      ].map((b, i) => (
-        <span
-          key={i}
-          style={{
-            width: 3,
-            height: b.init,
-            background: color,
-            boxShadow: `0 0 4px ${color}`,
-            borderRadius: 1,
-            display: 'block',
-            animation: `eq-anim-${i} ${b.speed} ease-in-out infinite alternate`,
-          }}
-        />
-      ))}
-      <style>{`
-        @keyframes eq-anim-0 { from { height: 2px; } to { height: 10px; } }
-        @keyframes eq-anim-1 { from { height: 2px; } to { height: 14px; } }
-        @keyframes eq-anim-2 { from { height: 2px; } to { height: 8px;  } }
-        @keyframes eq-anim-3 { from { height: 2px; } to { height: 12px; } }
-      `}</style>
-    </div>
-  )
-}
 
 /* ── HOBBY CARD ──────────────────────────────────────── */
 function HobbyCard({
@@ -114,8 +74,7 @@ function HobbyCard({
   inView: boolean
 }) {
   const [hovered, setHovered] = useState(false)
-  const { icon, title, color, glow, borderColor, items, id } = hobby
-  const isMusic = id === 'music'
+  const { icon, title, color, glow, borderColor, items } = hobby
 
   return (
     <motion.div
@@ -166,11 +125,6 @@ function HobbyCard({
         }}>
           {title}
         </span>
-        {isMusic && (
-          <div style={{ marginLeft: 'auto' }}>
-            <Equalizer color={color} />
-          </div>
-        )}
       </div>
 
       {/* items list */}

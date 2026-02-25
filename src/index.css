@@ -92,7 +92,7 @@ body::before {
 
 /* ─── SECTION BASE ───────────────────────────────────────── */
 section {
-  min-height: 100vh;
+  min-height: auto;
   padding: 120px 48px;
   position: relative;
 }
