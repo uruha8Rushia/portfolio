@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { motion, useInView } from 'framer-motion'
+import SectionHeader from './SectionHeader'
 import { IoFootball, IoBasketball, IoTrainSharp } from 'react-icons/io5'
 import { GiShuttlecock, GiVolleyballBall, GiSpiderWeb, GiSwordsEmblem, GiKatana, GiAk47, GiCrosshair, GiStoneWall , GiFist, GiVikingHelmet } from 'react-icons/gi'
 import { BsController, BsTv } from 'react-icons/bs'
@@ -202,27 +203,7 @@ export default function HobbiesSection() {
     >
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
-        {/* header */}
-        <motion.span
-          className="section-label"
-          initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5 }}
-        >
-          // 04. OFF-DUTY
-        </motion.span>
-        <motion.h2
-          className="section-title"
-          initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          HOBBIES
-        </motion.h2>
-        <motion.div
-          className="section-divider"
-          initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          style={{ transformOrigin: 'left' }}
-        />
+        <SectionHeader label="// 04. OFF-DUTY" title="HOBBIES" inView={inView} />
 
         {/* 4-card grid */}
         <div style={{
@@ -236,11 +217,7 @@ export default function HobbiesSection() {
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 768px) {
-          #hobbies { padding: 100px 24px !important; }
-        }
-      `}</style>
+
     </section>
   )
 }

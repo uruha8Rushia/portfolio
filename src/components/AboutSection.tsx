@@ -1,17 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
+import SectionHeader from './SectionHeader'
+import BlinkCursor from './BlinkCursor'
 
 /* ── ABOUT TAGS ──────────────────────────────────────── */
 const TAGS = [
   'Machine Learning', 'AI Systems', 'Data Science','Software Engineering'
 ]
 
-/* ── TERMINAL BLINK CURSOR ───────────────────────────── */
-function BlinkCursor() {
-  return (
-    <span style={{ display: 'inline-block', animation: 'blink 1s infinite', color: 'var(--cyan)' }}>▋</span>
-  )
-}
 
 /* ── ABOUT SECTION ───────────────────────────────────── */
 export default function AboutSection() {
@@ -40,27 +36,7 @@ export default function AboutSection() {
     >
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
-        {/* ── header ── */}
-        <motion.span
-          className="section-label"
-          initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5 }}
-        >
-          // 01. IDENTITY
-        </motion.span>
-        <motion.h2
-          className="section-title"
-          initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          ABOUT ME
-        </motion.h2>
-        <motion.div
-          className="section-divider"
-          initial={{ scaleX: 0, originX: 0 }} animate={inView ? { scaleX: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          style={{ transformOrigin: 'left' }}
-        />
+        <SectionHeader label="// 01. IDENTITY" title="ABOUT ME" inView={inView} />
 
         {/* ── two-column grid ── */}
         <div style={{
@@ -171,15 +147,7 @@ export default function AboutSection() {
         </div>
       </div>
 
-      {/* responsive style injection */}
-      <style>{`
-        @media (max-width: 768px) {
-          .about-grid-responsive {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-          }
-        }
-      `}</style>
+
     </section>
   )
 }

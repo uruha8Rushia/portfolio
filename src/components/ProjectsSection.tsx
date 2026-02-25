@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { SiGithub } from 'react-icons/si'
+import SectionHeader from './SectionHeader'
 
 /* ── PROJECT DATA ────────────────────────────────────── */
 const PROJECTS = [
@@ -141,6 +142,7 @@ function ProjectCard({
           href={github}
           target="_blank"
           rel="noopener noreferrer"
+          className="github-link"
           style={{
             fontFamily: "'Share Tech Mono', monospace",
             fontSize: 11,
@@ -150,10 +152,7 @@ function ProjectCard({
             display: 'inline-flex',
             alignItems: 'center',
             gap: 6,
-            transition: 'text-shadow 0.3s',
           }}
-          onMouseEnter={e => (e.currentTarget.style.textShadow = 'var(--glow-cyan)')}
-          onMouseLeave={e => (e.currentTarget.style.textShadow = 'none')}
         >
           <SiGithub size={14} /> GITHUB
         </a>
@@ -190,27 +189,7 @@ export default function ProjectsSection() {
     >
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
-        {/* header */}
-        <motion.span
-          className="section-label"
-          initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5 }}
-        >
-          // 02. WORK
-        </motion.span>
-        <motion.h2
-          className="section-title"
-          initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          PROJECTS
-        </motion.h2>
-        <motion.div
-          className="section-divider"
-          initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          style={{ transformOrigin: 'left' }}
-        />
+        <SectionHeader label="// 02. WORK" title="PROJECTS" inView={inView} />
 
         {/* grid */}
         <div style={{
@@ -224,11 +203,7 @@ export default function ProjectsSection() {
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 768px) {
-          #projects { padding: 100px 24px !important; }
-        }
-      `}</style>
+
     </section>
   )
 }

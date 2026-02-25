@@ -1,6 +1,8 @@
 import { useRef } from 'react'
 import type { ReactNode } from 'react'
 import { motion, useInView } from 'framer-motion'
+import SectionHeader from './SectionHeader'
+import BlinkCursor from './BlinkCursor'
 
 /* ── SVG ICONS ───────────────────────────────────────── */
 function IconEmail() {
@@ -50,20 +52,6 @@ const LINKS: { type: string; icon: ReactNode; label: string; href: string }[] = 
   },
 ]
 
-/* ── BLINK CURSOR ────────────────────────────────────── */
-function BlinkCursor() {
-  return (
-    <span
-      style={{
-        display: 'inline-block',
-        animation: 'blink 1s infinite',
-        color: 'var(--cyan)',
-      }}
-    >
-      ▋
-    </span>
-  )
-}
 
 /* ── CONTACT SECTION ─────────────────────────────────── */
 export default function ContactSection() {
@@ -82,27 +70,7 @@ export default function ContactSection() {
     >
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
-        {/* header */}
-        <motion.span
-          className="section-label"
-          initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5 }}
-        >
-          // 05. CONNECT
-        </motion.span>
-        <motion.h2
-          className="section-title"
-          initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          CONTACT
-        </motion.h2>
-        <motion.div
-          className="section-divider"
-          initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          style={{ transformOrigin: 'left' }}
-        />
+        <SectionHeader label="// 05. CONNECT" title="CONTACT" inView={inView} />
 
         {/* two-column layout */}
         <div
@@ -205,15 +173,7 @@ export default function ContactSection() {
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 768px) {
-          .contact-layout-responsive {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-          }
-          #contact { padding: 100px 24px !important; }
-        }
-      `}</style>
+
     </section>
   )
 }

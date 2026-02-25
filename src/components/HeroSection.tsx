@@ -1,52 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { motion, type Transition} from 'framer-motion'
-
-/* ── TYPED EFFECT HOOK ─────────────────────────────────── */
-const SUBTITLES = [
-  'CS Student @ Universiti Sains Malaysia',
-  'Intelligent Computing Major',
-  'ML · AI Systems · Software Engineering',
-]
-
-function useTypedText() {
-  const [display, setDisplay]     = useState('')
-  const [phraseIdx, setPhraseIdx] = useState(0)
-  const [charIdx, setCharIdx]     = useState(0)
-  const [deleting, setDeleting]   = useState(false)
-  const timeout                   = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  useEffect(() => {
-    const current = SUBTITLES[phraseIdx]
-
-    if (!deleting) {
-      // typing
-      timeout.current = setTimeout(() => {
-        setDisplay(current.slice(0, charIdx + 1))
-        if (charIdx + 1 >= current.length) {
-          // finished typing — pause then start deleting
-          timeout.current = setTimeout(() => setDeleting(true), 1800)
-        } else {
-          setCharIdx(c => c + 1)
-        }
-      }, charIdx === 0 ? 300 : 60)
-    } else {
-      // deleting
-      timeout.current = setTimeout(() => {
-        if (charIdx > 0) {
-          setDisplay(current.slice(0, charIdx - 1))
-          setCharIdx(c => c - 1)
-        } else {
-          setDeleting(false)
-          setPhraseIdx(p => (p + 1) % SUBTITLES.length)
-        }
-      }, 35)
-    }
-
-    return () => { if (timeout.current) clearTimeout(timeout.current) }
-  }, [charIdx, deleting, phraseIdx])
-
-  return display
-}
+import { motion, type Transition } from 'framer-motion'
+import { useTypedText } from '../hooks/useTypedText'
 
 /* ── FADE-UP MOTION HELPER ─────────────────────────────── */
 const tx = (delay: number): Transition => ({
@@ -61,34 +14,11 @@ const fadeUp = (delay = 0) => ({
   transition: tx(delay),
 })
 
-/* ── CUSTOM CURSOR ─────────────────────────────────────── */
-function CustomCursor() {
-  const dot  = useRef<HTMLDivElement>(null)
-  const ring = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      if (dot.current)  { dot.current.style.left = `${e.clientX}px`; dot.current.style.top = `${e.clientY}px` }
-      if (ring.current) { ring.current.style.left = `${e.clientX}px`; ring.current.style.top = `${e.clientY}px` }
-    }
-    window.addEventListener('mousemove', onMove)
-    return () => window.removeEventListener('mousemove', onMove)
-  }, [])
-
-  return (
-    <>
-      <div ref={dot}  className="cursor" />
-      <div ref={ring} className="cursor-ring" />
-    </>
-  )
-}
-
 export default function HeroSection() {
   const typed = useTypedText()
 
   return (
     <>
-      <CustomCursor />
 
       <section
         id="hero"
@@ -118,17 +48,6 @@ export default function HeroSection() {
           }}
         />
 
-        {/* Glitch grid drift keyframe injected here */}
-        <style>{`
-          @keyframes grid-drift {
-            0%   { transform: translateY(0); }
-            100% { transform: translateY(60px); }
-          }
-          @keyframes hero-float {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50%       { transform: translateX(-50%) translateY(-8px); }
-          }
-        `}</style>
 
         {/* Corner brackets */}
         {(['tl','tr','bl','br'] as const).map(pos => (

@@ -359,7 +359,54 @@ section {
 
 .contact-link:hover::before { transform: scaleY(1); }
 
+/* ─── TOOL CARD (SkillsSection) ──────────────────────────── */
+.tool-card {
+  background: rgba(0, 245, 255, 0.04);
+  border: 1px solid rgba(0, 245, 255, 0.12);
+  color: var(--text-dim);
+  transition: color 0.3s, border-color 0.3s, text-shadow 0.3s, background 0.3s;
+}
+
+.tool-card:hover {
+  color: var(--cyan);
+  border-color: rgba(0, 245, 255, 0.4);
+  text-shadow: var(--glow-cyan);
+  background: rgba(0, 245, 255, 0.08);
+}
+
+/* ─── GITHUB LINK (ProjectsSection) ─────────────────────── */
+.github-link { transition: text-shadow 0.3s; }
+.github-link:hover { text-shadow: var(--glow-cyan); }
+
+/* ─── HERO KEYFRAMES ─────────────────────────────────────── */
+@keyframes grid-drift {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(60px); }
+}
+
+@keyframes hero-float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(-8px); }
+}
+
 /* ─── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 768px) {
   section { padding: 100px 24px; }
+
+  .about-grid-responsive {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  .skills-layout-responsive {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  .contact-layout-responsive {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  #projects, #hobbies, #contact { padding: 100px 24px !important; }
 }

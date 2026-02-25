@@ -1,4 +1,5 @@
 import './index.css'
+import CustomCursor from './components/CustomCursor'
 import DotNav from './components/DotNav'
 import HeroSection from './components/HeroSection'
 import AboutSection from './components/AboutSection'
@@ -12,6 +13,9 @@ import Footer from './components/Footer'
 export default function App() {
   return (
     <>
+      {/* Global custom cursor */}
+      <CustomCursor />
+
       {/* Global vertical dot navigation */}
       <DotNav />
 

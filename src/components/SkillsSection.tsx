@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import type { ReactNode } from 'react'
 import { motion, useInView } from 'framer-motion'
+import SectionHeader from './SectionHeader'
 import {
   SiPython, SiCplusplus, SiJavascript, SiTypescript,
   SiPandas, SiScikitlearn, SiFlask, SiReact, SiTailwindcss,
@@ -159,27 +160,7 @@ export default function SkillsSection() {
     >
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
-        {/* header */}
-        <motion.span
-          className="section-label"
-          initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5 }}
-        >
-          // 03. ARSENAL
-        </motion.span>
-        <motion.h2
-          className="section-title"
-          initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          SKILLS
-        </motion.h2>
-        <motion.div
-          className="section-divider"
-          initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          style={{ transformOrigin: 'left' }}
-        />
+        <SectionHeader label="// 03. ARSENAL" title="SKILLS" inView={inView} />
 
         {/* two-column layout */}
         <div
@@ -250,38 +231,21 @@ export default function SkillsSection() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={inView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.6 + i * 0.07 }}
+                  className="tool-card"
                   style={{
-                    background: 'rgba(0,245,255,0.04)',
-                    border: '1px solid rgba(0,245,255,0.12)',
                     padding: '18px 12px',
                     textAlign: 'center',
                     fontFamily: "'Share Tech Mono', monospace",
                     fontSize: 12,
-                    color: 'var(--text-dim)',
                     letterSpacing: 1,
                     position: 'relative',
                     overflow: 'hidden',
-                    transition: 'color 0.3s, border-color 0.3s, text-shadow 0.3s',
                     cursor: 'default',
                     clipPath: 'polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     gap: 8,
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget
-                    el.style.color        = 'var(--cyan)'
-                    el.style.borderColor  = 'rgba(0,245,255,0.4)'
-                    el.style.textShadow   = 'var(--glow-cyan)'
-                    el.style.background   = 'rgba(0,245,255,0.08)'
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget
-                    el.style.color        = 'var(--text-dim)'
-                    el.style.borderColor  = 'rgba(0,245,255,0.12)'
-                    el.style.textShadow   = 'none'
-                    el.style.background   = 'rgba(0,245,255,0.04)'
                   }}
                 >
                   <span style={{ fontSize: 22, display: 'flex' }}>{icon}</span>
@@ -293,14 +257,7 @@ export default function SkillsSection() {
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 768px) {
-          .skills-layout-responsive {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-          }
-        }
-      `}</style>
+
     </section>
   )
 }
