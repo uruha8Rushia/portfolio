@@ -79,109 +79,50 @@ function HobbyCard({
 
   return (
     <motion.div
+      className="hobby-card"
       initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: 0.2 + index * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: 'rgba(7,13,26,0.85)',
         border: `1px solid ${hovered ? borderColor : 'rgba(0,245,255,0.08)'}`,
-        borderRadius: 4,
-        overflow: 'hidden',
-        transition: 'border-color 0.3s, box-shadow 0.3s, transform 0.3s',
         transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
         boxShadow: hovered ? `0 0 30px ${borderColor}, 0 16px 40px rgba(0,0,0,0.4)` : 'none',
-        position: 'relative',
       }}
     >
       {/* top accent line */}
-      <div style={{
-        position: 'absolute',
-        top: 0, left: 0, right: 0,
-        height: 2,
-        background: `linear-gradient(90deg, ${color}, transparent)`,
-        opacity: hovered ? 1 : 0.3,
-        transition: 'opacity 0.3s',
-      }} />
+      <div
+        className="hobby-card-accent"
+        style={{ background: `linear-gradient(90deg, ${color}, transparent)`, opacity: hovered ? 1 : 0.3 }}
+      />
 
       {/* card header */}
-      <div style={{
-        background: 'rgba(0,245,255,0.04)',
-        borderBottom: `1px solid ${borderColor.replace('0.25', '0.1')}`,
-        padding: '14px 20px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 10,
-      }}>
-        <span style={{ display: 'flex', alignItems: 'center' }}>{icon}</span>
-        <span style={{
-          fontFamily: "'Orbitron', monospace",
-          fontSize: 13,
-          fontWeight: 700,
-          color,
-          letterSpacing: 3,
-          textShadow: hovered ? glow : 'none',
-          transition: 'text-shadow 0.3s',
-        }}>
+      <div
+        className="hobby-card-header"
+        style={{ borderBottom: `1px solid ${borderColor.replace('0.25', '0.1')}` }}
+      >
+        <span>{icon}</span>
+        <span className="hobby-card-title" style={{ color, textShadow: hovered ? glow : 'none' }}>
           {title}
         </span>
       </div>
 
       {/* items list */}
-      <div style={{ padding: '8px 0' }}>
+      <div className="hobby-items">
         {items.map((item, i) => (
           <motion.div
             key={item.name}
+            className="hobby-item"
             initial={{ opacity: 0, x: -12 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.4, delay: 0.4 + index * 0.12 + i * 0.07 }}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 14,
-              padding: '11px 20px',
-              borderBottom: i < items.length - 1
-                ? ' 1px solid rgba(255,255,255,0.03)'
-                : 'none',
-              transition: 'background 0.2s',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(0,245,255,0.04)')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
           >
-            {/* index number */}
-            <span style={{
-              fontFamily: "'Share Tech Mono', monospace",
-              fontSize: 10,
-              color: 'var(--text-dim)',
-              width: 18,
-              textAlign: 'right',
-              flexShrink: 0,
-            }}>
-              {String(i + 1).padStart(2, '0')}
-            </span>
-
-            <span style={{ display: 'flex', alignItems: 'center', flexShrink: 0, color: 'var(--text-dim)' }}>{item.icon}</span>
-
-            <div style={{ minWidth: 0 }}>
-              <div style={{
-                fontFamily: "'Rajdhani', sans-serif",
-                fontSize: 14,
-                fontWeight: 600,
-                color: 'var(--text)',
-                lineHeight: 1.2,
-              }}>
-                {item.name}
-              </div>
-              <div style={{
-                fontFamily: "'Share Tech Mono', monospace",
-                fontSize: 10,
-                color: 'var(--text-dim)',
-                letterSpacing: 1,
-                marginTop: 2,
-              }}>
-                {item.sub}
-              </div>
+            <span className="hobby-item-num">{String(i + 1).padStart(2, '0')}</span>
+            <span className="hobby-item-icon">{item.icon}</span>
+            <div className="hobby-item-body">
+              <div className="hobby-item-name">{item.name}</div>
+              <div className="hobby-item-sub">{item.sub}</div>
             </div>
           </motion.div>
         ))}
@@ -196,21 +137,13 @@ export default function HobbiesSection() {
   const inView     = useInView(sectionRef, { once: true, margin: '-80px' })
 
   return (
-    <section
-      id="hobbies"
-      ref={sectionRef}
-      style={{ background: 'var(--dark)', padding: '120px 48px', position: 'relative' }}
-    >
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+    <section id="hobbies" ref={sectionRef}>
+      <div className="section-inner">
 
         <SectionHeader label="// 04. OFF-DUTY" title="HOBBIES" inView={inView} />
 
         {/* 4-card grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-          gap: 24,
-        }}>
+        <div className="hobbies-grid">
           {HOBBIES.map((h, i) => (
             <HobbyCard key={h.id} hobby={h} index={i} inView={inView} />
           ))}

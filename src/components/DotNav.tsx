@@ -39,33 +39,9 @@ export default function DotNav() {
   }
 
   return (
-    <nav
-      aria-label="Section navigation"
-      style={{
-        position: 'fixed',
-        right: '28px',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        zIndex: 5000,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '20px',
-      }}
-    >
+    <nav className="dotnav" aria-label="Section navigation">
       {/* vertical line */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '1px',
-          background: 'linear-gradient(to bottom, transparent, rgba(0,245,255,0.2), transparent)',
-          pointerEvents: 'none',
-        }}
-      />
+      <div className="dotnav-line" />
 
       {SECTIONS.map(({ id, label }) => {
         const isActive = active === id
@@ -73,7 +49,7 @@ export default function DotNav() {
         return (
           <div
             key={id}
-            style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
+            className="dotnav-item"
             onMouseEnter={() => setHovered(id)}
             onMouseLeave={() => setHovered(null)}
           >
@@ -81,20 +57,14 @@ export default function DotNav() {
             <AnimatePresence>
               {hovered === id && (
                 <motion.span
+                  className="dotnav-label"
                   initial={{ opacity: 0, x: 8 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 8 }}
                   transition={{ duration: 0.15 }}
                   style={{
-                    position: 'absolute',
-                    right: '24px',
-                    fontFamily: "'Share Tech Mono', monospace",
-                    fontSize: '10px',
-                    letterSpacing: '2px',
                     color: isActive ? 'var(--cyan)' : 'var(--text-dim)',
-                    whiteSpace: 'nowrap',
                     textShadow: isActive ? 'var(--glow-cyan)' : 'none',
-                    pointerEvents: 'none',
                   }}
                 >
                   {label}

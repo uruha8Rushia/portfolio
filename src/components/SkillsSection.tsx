@@ -42,33 +42,15 @@ function SyncBar({ pct, delay }: { pct: number; delay: number }) {
   return (
     <div
       ref={ref}
-      style={{
-        height: 3,
-        background: 'rgba(255,255,255,0.05)',
-        position: 'relative',
-        overflow: 'visible',
-      }}
+      className="sync-bar"
     >
       <motion.div
+        className="sync-bar-fill"
         initial={{ width: 0 }}
         animate={inView ? { width: `${pct}%` } : { width: 0 }}
         transition={{ duration: 1.5, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
-        style={{
-          height: '100%',
-          background: 'linear-gradient(90deg, var(--cyan), var(--magenta))',
-          boxShadow: '0 0 8px var(--cyan)',
-          position: 'relative',
-        }}
       >
-        <span style={{
-          position: 'absolute',
-          right: -3, top: -3,
-          width: 8, height: 8,
-          borderRadius: '50%',
-          background: 'var(--cyan)',
-          boxShadow: 'var(--glow-cyan)',
-          display: 'block',
-        }} />
+        <span className="sync-bar-dot" />
       </motion.div>
     </div>
   )
@@ -87,54 +69,27 @@ function SkillCategory({
   inView: boolean
 }) {
   return (
-    <div style={{ marginBottom: 40 }}>
+    <div className="skill-category">
       {/* category label */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        marginBottom: 20,
-        fontFamily: "'Share Tech Mono', monospace",
-        fontSize: 11,
-        color: 'var(--magenta)',
-        letterSpacing: 3,
-        textTransform: 'uppercase',
-      }}>
+      <div className="skill-category-label">
         {label}
-        <span style={{
-          flex: 1,
-          height: 1,
-          background: 'linear-gradient(90deg, rgba(255,0,160,0.3), transparent)',
-        }} />
+        <span className="label-divider" />
       </div>
 
       {skills.map(({ name, pct, icon }, i) => (
         <motion.div
           key={name}
+          className="skill-row"
           initial={{ opacity: 0, x: -20 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5, delay: baseDelay + i * 0.08 }}
-          style={{ marginBottom: 18 }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 7 }}>
-            <span style={{
-              fontFamily: "'Rajdhani', sans-serif",
-              fontSize: 14,
-              fontWeight: 600,
-              color: 'var(--text)',
-              letterSpacing: 1,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 7,
-            }}>
-              <span style={{ color: 'var(--cyan)', display: 'flex', alignItems: 'center', fontSize: 15 }}>{icon}</span>
+          <div className="skill-row-header">
+            <span className="skill-name">
+              <span className="skill-icon">{icon}</span>
               {name}
             </span>
-            <span style={{
-              fontFamily: "'Share Tech Mono', monospace",
-              fontSize: 11,
-              color: 'var(--cyan)',
-            }}>{pct}%</span>
+            <span className="skill-pct">{pct}%</span>
           </div>
           <SyncBar pct={pct} delay={baseDelay + i * 0.1} />
         </motion.div>
@@ -149,29 +104,13 @@ export default function SkillsSection() {
   const inView     = useInView(sectionRef, { once: true, margin: '-80px' })
 
   return (
-    <section
-      id="skills"
-      ref={sectionRef}
-      style={{
-        background: 'linear-gradient(135deg, var(--dark2) 0%, var(--dark) 100%)',
-        padding: '120px 48px',
-        position: 'relative',
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+    <section id="skills" ref={sectionRef}>
+      <div className="section-inner">
 
         <SectionHeader label="// 03. ARSENAL" title="SKILLS" inView={inView} />
 
         {/* two-column layout */}
-        <div
-          className="skills-layout-responsive"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: 60,
-            alignItems: 'start',
-          }}
-        >
+        <div className="skills-grid">
 
           {/* ── LEFT: sync-rate bars ── */}
           <motion.div
@@ -200,55 +139,22 @@ export default function SkillsSection() {
             transition={{ duration: 0.7, delay: 0.5 }}
           >
             {/* tools label */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              marginBottom: 24,
-              fontFamily: "'Share Tech Mono', monospace",
-              fontSize: 11,
-              color: 'var(--magenta)',
-              letterSpacing: 3,
-              textTransform: 'uppercase',
-            }}>
+            <div className="skill-category-label">
               Tools & Platforms
-              <span style={{
-                flex: 1,
-                height: 1,
-                background: 'linear-gradient(90deg, rgba(255,0,160,0.3), transparent)',
-              }} />
+              <span className="label-divider" />
             </div>
 
             {/* hex-style grid */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: 12,
-            }}>
+            <div className="tools-grid">
               {TOOLS.map(({ name, icon }, i) => (
                 <motion.div
                   key={name}
+                  className="tool-card"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={inView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.6 + i * 0.07 }}
-                  className="tool-card"
-                  style={{
-                    padding: '18px 12px',
-                    textAlign: 'center',
-                    fontFamily: "'Share Tech Mono', monospace",
-                    fontSize: 12,
-                    letterSpacing: 1,
-                    position: 'relative',
-                    overflow: 'hidden',
-                    cursor: 'default',
-                    clipPath: 'polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 8,
-                  }}
                 >
-                  <span style={{ fontSize: 22, display: 'flex' }}>{icon}</span>
+                  <span className="tool-icon">{icon}</span>
                   {name}
                 </motion.div>
               ))}

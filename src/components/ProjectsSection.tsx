@@ -69,105 +69,31 @@ function ProjectCard({
     >
       {/* hackathon badge */}
       {badge && (
-        <div style={{
-          display: 'inline-block',
-          fontFamily: "'Share Tech Mono', monospace",
-          fontSize: 10,
-          padding: '3px 10px',
-          background: 'linear-gradient(90deg, var(--cyan), var(--magenta))',
-          color: 'var(--dark)',
-          fontWeight: 700,
-          letterSpacing: 2,
-          marginBottom: 16,
-        }}>
-          {badge}
-        </div>
+        <div className="project-badge">{badge}</div>
       )}
 
       {/* number */}
-      <span style={{
-        fontFamily: "'Orbitron', monospace",
-        fontSize: 11,
-        color: 'var(--magenta)',
-        letterSpacing: 3,
-        marginBottom: 16,
-        display: 'block',
-      }}>
-        {num}
-      </span>
+      <span className="project-num">{num}</span>
 
       {/* name */}
-      <div style={{
-        fontFamily: "'Orbitron', monospace",
-        fontSize: 18,
-        fontWeight: 700,
-        color: featured ? 'var(--cyan)' : '#fff',
-        marginBottom: 12,
-        lineHeight: 1.2,
-      }}>
-        {name}
-      </div>
+      <div className={`project-name${featured ? ' featured' : ''}`}>{name}</div>
 
       {/* desc */}
-      <p style={{
-        fontSize: 14,
-        color: 'var(--text)',
-        lineHeight: 1.7,
-        marginBottom: 24,
-        fontWeight: 300,
-      }}>
-        {desc}
-      </p>
+      <p className="project-desc">{desc}</p>
 
       {/* tech badges */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
+      <div className="project-tech">
         {tech.map(t => (
-          <span key={t} style={{
-            fontFamily: "'Share Tech Mono', monospace",
-            fontSize: 10,
-            padding: '3px 10px',
-            border: '1px solid rgba(255,0,160,0.3)',
-            color: 'var(--magenta)',
-            background: 'rgba(255,0,160,0.04)',
-            letterSpacing: 1,
-          }}>
-            {t}
-          </span>
+          <span key={t} className="tech-badge">{t}</span>
         ))}
       </div>
 
-      {/* github link */}
+      {/* github link — corner mark rendered via .project-card::after */}
       <div>
-        <a
-          href={github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="github-link"
-          style={{
-            fontFamily: "'Share Tech Mono', monospace",
-            fontSize: 11,
-            color: 'var(--cyan)',
-            textDecoration: 'none',
-            letterSpacing: 2,
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 6,
-          }}
-        >
+        <a href={github} target="_blank" rel="noopener noreferrer" className="github-link">
           <SiGithub size={14} /> GITHUB
         </a>
       </div>
-
-      {/* corner mark */}
-      <div style={{
-        position: 'absolute',
-        bottom: 16,
-        right: 16,
-        width: 24,
-        height: 24,
-        borderRight: '1px solid rgba(0,245,255,0.2)',
-        borderBottom: '1px solid rgba(0,245,255,0.2)',
-      }} />
     </motion.div>
   )
 }
@@ -178,25 +104,13 @@ export default function ProjectsSection() {
   const inView     = useInView(sectionRef, { once: true, margin: '-80px' })
 
   return (
-    <section
-      id="projects"
-      ref={sectionRef}
-      style={{
-        background: 'var(--dark)',
-        padding: '120px 48px',
-        position: 'relative',
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+    <section id="projects" ref={sectionRef}>
+      <div className="section-inner">
 
         <SectionHeader label="// 02. WORK" title="PROJECTS" inView={inView} />
 
         {/* grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-          gap: 24,
-        }}>
+        <div className="projects-grid">
           {PROJECTS.map((p, i) => (
             <ProjectCard key={p.num} project={p} index={i} inView={inView} />
           ))}

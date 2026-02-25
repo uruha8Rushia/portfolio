@@ -59,29 +59,13 @@ export default function ContactSection() {
   const inView = useInView(sectionRef, { once: true, margin: '-80px' })
 
   return (
-    <section
-      id="contact"
-      ref={sectionRef}
-      style={{
-        background: 'linear-gradient(135deg, var(--dark2) 0%, var(--dark) 100%)',
-        padding: '120px 48px',
-        position: 'relative',
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+    <section id="contact" ref={sectionRef}>
+      <div className="section-inner">
 
         <SectionHeader label="// 05. CONNECT" title="CONTACT" inView={inView} />
 
         {/* two-column layout */}
-        <div
-          className="contact-layout-responsive"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: 80,
-            alignItems: 'start',
-          }}
-        >
+        <div className="contact-grid">
 
           {/* ── LEFT: blurb + links ── */}
           <motion.div
@@ -89,18 +73,12 @@ export default function ContactSection() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3 }}
           >
-            <p style={{
-              fontSize: 16,
-              color: 'var(--text)',
-              lineHeight: 1.85,
-              marginBottom: 36,
-              fontWeight: 300,
-            }}>
+            <p className="contact-blurb">
               Available for internships, collaborations, and interesting projects.
-              Let's build something <span style={{ color: 'var(--cyan)' }}>intelligent</span> together.
+              Let's build something <span className="text-cyan">intelligent</span> together.
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div className="contact-links">
               {LINKS.map(({ type, icon, label, href }, i) => (
                 <motion.a
                   key={type}
@@ -112,26 +90,10 @@ export default function ContactSection() {
                   transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
                   className="contact-link"
                 >
-                  <span style={{ width: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--cyan)', flexShrink: 0 }}>{icon}</span>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{
-                      fontFamily: "'Share Tech Mono', monospace",
-                      fontSize: 10,
-                      color: 'var(--text-dim)',
-                      letterSpacing: 2,
-                      textTransform: 'uppercase',
-                      marginBottom: 2,
-                    }}>
-                      {type}
-                    </span>
-                    <span style={{
-                      fontSize: 14,
-                      fontWeight: 600,
-                      color: 'var(--cyan)',
-                      transition: 'text-shadow 0.3s',
-                    }}>
-                      {label}
-                    </span>
+                  <span className="contact-link-icon">{icon}</span>
+                  <div className="contact-link-meta">
+                    <span className="contact-link-type">{type}</span>
+                    <span className="contact-link-label">{label}</span>
                   </div>
                 </motion.a>
               ))}
@@ -152,7 +114,7 @@ export default function ContactSection() {
                 <span className="terminal-title">send_message.sh</span>
               </div>
               <div className="terminal-body" style={{ lineHeight: 2 }}>
-                <div style={{ display: 'flex', gap: 12 }}>
+                <div className="t-row">
                   <span className="t-prompt">$</span>
                   <span className="t-cmd"> ./reach_out.sh</span>
                 </div>
@@ -163,7 +125,7 @@ export default function ContactSection() {
                 <span className="t-out" style={{ marginTop: 8 }} />
                 <span className="t-out dim">// Best way to reach me:</span>
                 <span className="t-out mag">jiongming2004@gmail.com</span>
-                <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
+                <div className="t-row" style={{ marginTop: 8 }}>
                   <span className="t-prompt">$</span>
                   <span className="t-cmd">&nbsp;<BlinkCursor /></span>
                 </div>

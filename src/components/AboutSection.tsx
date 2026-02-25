@@ -25,28 +25,13 @@ export default function AboutSection() {
   }, [inView])
 
   return (
-    <section
-      id="about"
-      ref={sectionRef}
-      style={{
-        background: 'linear-gradient(135deg, var(--dark) 0%, var(--dark2) 100%)',
-        padding: '120px 48px',
-        position: 'relative',
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+    <section id="about" ref={sectionRef}>
+      <div className="section-inner">
 
         <SectionHeader label="// 01. IDENTITY" title="ABOUT ME" inView={inView} />
 
         {/* ── two-column grid ── */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(0,1fr) minmax(0,1.6fr)',
-          gap: 80,
-          alignItems: 'start',
-        }}
-          className="about-grid-responsive"
-        >
+        <div className="about-grid">
 
           {/* ── LEFT: terminal + MAGI + stats ── */}
           <motion.div
@@ -62,10 +47,10 @@ export default function AboutSection() {
                 <span className="terminal-dot green" />
                 <span className="terminal-title">user_profile.sh</span>
               </div>
-              <div className="terminal-body" style={{ lineHeight: 1.9 }}>
+              <div className="terminal-body" style={{ lineHeight: 1.9 }}> {/* lineHeight varies per terminal */}
 
                 {step >= 1 && (
-                  <div style={{ display: 'flex', gap: 12 }}>
+                  <div className="t-row">
                     <span className="t-prompt">$</span>
                     <span className="t-cmd"> whoami</span>
                   </div>
@@ -74,7 +59,7 @@ export default function AboutSection() {
 
                 {step >= 2 && (
                   <>
-                    <div style={{ display: 'flex', gap: 12, marginTop: 10 }}>
+                    <div className="t-row" style={{ marginTop: 10 }}>
                       <span className="t-prompt">$</span>
                       <span className="t-cmd"> cat profile.json</span>
                     </div>
@@ -83,17 +68,17 @@ export default function AboutSection() {
                 {step >= 3 && (
                   <>
                     <span className="t-out">{'{'}</span>
-                    <span className="t-out">&nbsp;&nbsp;"role": <span style={{ color: 'var(--yellow)' }}>"CS Student"</span>,</span>
-                    <span className="t-out">&nbsp;&nbsp;"major": <span style={{ color: 'var(--yellow)' }}>"Intelligent Computing"</span>,</span>
-                    <span className="t-out">&nbsp;&nbsp;"uni": <span style={{ color: 'var(--yellow)' }}>"USM"</span>,</span>
-                    <span className="t-out">&nbsp;&nbsp;"year": <span style={{ color: 'var(--cyan)' }}>3</span>,</span>
-                    <span className="t-out">&nbsp;&nbsp;"location": <span style={{ color: 'var(--yellow)' }}>"Penang, MY"</span>,</span>
+                    <span className="t-out">&nbsp;&nbsp;"role": <span className="text-yellow">"CS Student"</span>,</span>
+                    <span className="t-out">&nbsp;&nbsp;"major": <span className="text-yellow">"Intelligent Computing"</span>,</span>
+                    <span className="t-out">&nbsp;&nbsp;"uni": <span className="text-yellow">"USM"</span>,</span>
+                    <span className="t-out">&nbsp;&nbsp;"year": <span className="text-cyan">3</span>,</span>
+                    <span className="t-out">&nbsp;&nbsp;"location": <span className="text-yellow">"Penang, MY"</span>,</span>
                     <span className="t-out">&nbsp;&nbsp;"status": <span className="mag">"available"</span></span>
                     <span className="t-out">{'}'}</span>
                   </>
                 )}
 
-                <div style={{ display: 'flex', gap: 12, marginTop: 10 }}>
+                <div className="t-row" style={{ marginTop: 10 }}>
                   <span className="t-prompt">$</span>
                   <span className="t-cmd">&nbsp;<BlinkCursor /></span>
                 </div>
@@ -109,28 +94,22 @@ export default function AboutSection() {
             transition={{ duration: 0.7, delay: 0.5 }}
           >
             {/* Bio */}
-            <p style={{
-              fontSize: 17,
-              lineHeight: 1.85,
-              color: 'var(--text)',
-              marginBottom: 32,
-              fontWeight: 300,
-            }}>
-              I'm a <strong style={{ color: 'var(--cyan)', fontWeight: 600 }}>Computer Science student</strong> at
+            <p className="about-bio">
+              I'm a <strong>Computer Science student</strong> at
               USM majoring in{' '}
-              <strong style={{ color: 'var(--cyan)', fontWeight: 600 }}>Intelligent Computing</strong>, passionate
-              about <strong style={{ color: 'var(--cyan)', fontWeight: 600 }}>AI and machine learning</strong>.
+              <strong>Intelligent Computing</strong>, passionate
+              about <strong>AI and machine learning</strong>.
               Specifically, how machine learning or AI systems can transform{' '}
-              <strong style={{ color: 'var(--cyan)', fontWeight: 600 }}>complex data into meaningful decisions</strong>.
+              <strong>complex data into meaningful decisions</strong>.
               <br /><br />
               I enjoy solving complex problems as the sense of satisfaction are highly rewarding. I'm also driven
               by the challenge of designing models that are not only accurate, but{' '}
-              <strong style={{ color: 'var(--cyan)', fontWeight: 600 }}>efficient, scalable, and impactful</strong>{' '}
+              <strong>efficient, scalable, and impactful</strong>{' '}
               in real-world applications.
             </p>
 
             {/* Tags */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+            <div className="tags-container">
               {TAGS.map((t, i) => (
                 <motion.span
                   key={t}

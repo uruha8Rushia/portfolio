@@ -1,5 +1,3 @@
-@import "tailwindcss";
-
 /* ─── CYBERPUNK DESIGN TOKENS ────────────────────────────── */
 :root {
   --cyan:      #00f5ff;
@@ -359,24 +357,159 @@ section {
 
 .contact-link:hover::before { transform: scaleY(1); }
 
-/* ─── TOOL CARD (SkillsSection) ──────────────────────────── */
+/* ─── SECTION ID BACKGROUNDS ─────────────────────────────── */
+#hero    { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 0 48px; overflow: hidden; }
+#about   { background: linear-gradient(135deg, var(--dark)  0%, var(--dark2) 100%); }
+#skills  { background: linear-gradient(135deg, var(--dark2) 0%, var(--dark)  100%); }
+#contact { background: linear-gradient(135deg, var(--dark2) 0%, var(--dark)  100%); }
+
+/* ─── SHARED INNER CONTAINER ─────────────────────────────── */
+.section-inner { max-width: 1200px; margin: 0 auto; }
+
+/* ─── UTILITY COLORS ─────────────────────────────────────── */
+.text-cyan   { color: var(--cyan); }
+.text-yellow { color: var(--yellow); }
+.mag         { color: var(--magenta); }
+
+/* ─── HERO ───────────────────────────────────────────────── */
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: grid-drift 20s linear infinite;
+  z-index: 0;
+}
+
+.corner-bracket { position: absolute; width: 80px; height: 80px; border-color: var(--cyan); border-style: solid; opacity: 0.4; z-index: 1; }
+.corner-tl { top: 80px;   left: 48px;  border-width: 2px 0 0 2px; }
+.corner-tr { top: 80px;   right: 48px; border-width: 2px 2px 0 0; }
+.corner-bl { bottom: 48px; left: 48px;  border-width: 0 0 2px 2px; }
+.corner-br { bottom: 48px; right: 48px; border-width: 0 2px 2px 0; }
+
+.hero-content  { position: relative; z-index: 2; max-width: 900px; }
+.hero-h1       { margin: 0; line-height: 1; }
+.hero-eyebrow  { font-family: 'Share Tech Mono', monospace; font-size: 13px; color: var(--magenta); letter-spacing: 5px; text-transform: uppercase; margin-bottom: 20px; }
+.hero-name     { font-family: 'Orbitron', monospace; font-weight: 900; font-size: clamp(40px, 7vw, 96px); display: block; }
+.hero-name-white { color: #fff; }
+.hero-name-cyan  { color: var(--cyan); text-shadow: var(--glow-cyan); }
+.hero-subtitle { font-family: 'Share Tech Mono', monospace; font-size: clamp(14px, 2vw, 20px); color: var(--text-dim); margin-top: 24px; margin-bottom: 40px; min-height: 1.6em; }
+.hero-cursor   { animation: blink 1s infinite; color: var(--cyan); margin-left: 2px; }
+.hero-cta      { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.hero-scroll {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font-family: 'Share Tech Mono', monospace; font-size: 10px;
+  color: var(--text-dim); letter-spacing: 3px;
+  animation: hero-float 2s ease-in-out infinite; z-index: 2;
+}
+.hero-scroll-line { width: 1px; height: 40px; background: linear-gradient(var(--cyan), transparent); }
+
+/* ─── ABOUT ──────────────────────────────────────────────── */
+.about-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.6fr); gap: 80px; align-items: start; }
+.about-bio  { font-size: 17px; line-height: 1.85; color: var(--text); margin-bottom: 32px; font-weight: 300; }
+.about-bio strong { color: var(--cyan); font-weight: 600; }
+.tags-container   { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ─── TERMINAL ROWS ──────────────────────────────────────── */
+.t-row { display: flex; gap: 12px; }
+
+/* ─── PROJECTS ───────────────────────────────────────────── */
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+
+.project-badge { display: inline-block; font-family: 'Share Tech Mono', monospace; font-size: 10px; padding: 3px 10px; background: linear-gradient(90deg, var(--cyan), var(--magenta)); color: var(--dark); font-weight: 700; letter-spacing: 2px; margin-bottom: 16px; }
+.project-num   { font-family: 'Orbitron', monospace; font-size: 11px; color: var(--magenta); letter-spacing: 3px; margin-bottom: 16px; display: block; }
+.project-name  { font-family: 'Orbitron', monospace; font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.2; }
+.project-name.featured { color: var(--cyan); }
+.project-desc  { font-size: 14px; color: var(--text); line-height: 1.7; margin-bottom: 24px; font-weight: 300; }
+.project-tech  { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.tech-badge    { font-family: 'Share Tech Mono', monospace; font-size: 10px; padding: 3px 10px; border: 1px solid rgba(255,0,160,0.3); color: var(--magenta); background: rgba(255,0,160,0.04); letter-spacing: 1px; }
+
+/* corner mark via pseudo — removes a DOM node per card */
+.project-card::after  { content: ''; position: absolute; bottom: 16px; right: 16px; width: 24px; height: 24px; border-right: 1px solid rgba(0,245,255,0.2); border-bottom: 1px solid rgba(0,245,255,0.2); }
+.project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--magenta)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+.project-card:hover::before { transform: scaleX(1); }
+
+/* ─── GITHUB LINK ────────────────────────────────────────── */
+.github-link {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px; color: var(--cyan); text-decoration: none;
+  letter-spacing: 2px; display: inline-flex; align-items: center; gap: 6px;
+  transition: text-shadow 0.3s;
+}
+.github-link:hover { text-shadow: var(--glow-cyan); }
+
+/* ─── SKILLS ─────────────────────────────────────────────── */
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.skill-category       { margin-bottom: 40px; }
+.skill-category-label { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--magenta); letter-spacing: 3px; text-transform: uppercase; }
+.label-divider        { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,0,160,0.3), transparent); }
+.skill-row            { margin-bottom: 18px; }
+.skill-row-header     { display: flex; justify-content: space-between; margin-bottom: 7px; }
+.skill-name  { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 600; color: var(--text); letter-spacing: 1px; display: flex; align-items: center; gap: 7px; }
+.skill-icon  { color: var(--cyan); display: flex; align-items: center; font-size: 15px; }
+.skill-pct   { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--cyan); }
+.sync-bar     { height: 3px; background: rgba(255,255,255,0.05); position: relative; overflow: visible; }
+.sync-bar-fill{ height: 100%; background: linear-gradient(90deg, var(--cyan), var(--magenta)); box-shadow: 0 0 8px var(--cyan); position: relative; }
+.sync-bar-dot { position: absolute; right: -3px; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: var(--glow-cyan); display: block; }
+.tools-grid   { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.tool-icon    { font-size: 22px; display: flex; }
+
+/* ─── TOOL CARD ──────────────────────────────────────────── */
 .tool-card {
   background: rgba(0, 245, 255, 0.04);
   border: 1px solid rgba(0, 245, 255, 0.12);
   color: var(--text-dim);
+  padding: 18px 12px; text-align: center;
+  font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: 1px;
+  position: relative; overflow: hidden; cursor: default;
+  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
   transition: color 0.3s, border-color 0.3s, text-shadow 0.3s, background 0.3s;
 }
+.tool-card:hover { color: var(--cyan); border-color: rgba(0,245,255,0.4); text-shadow: var(--glow-cyan); background: rgba(0,245,255,0.08); }
 
-.tool-card:hover {
-  color: var(--cyan);
-  border-color: rgba(0, 245, 255, 0.4);
-  text-shadow: var(--glow-cyan);
-  background: rgba(0, 245, 255, 0.08);
-}
+/* ─── HOBBIES ────────────────────────────────────────────── */
+.hobbies-grid    { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.hobby-card      { background: rgba(7,13,26,0.85); border-radius: 4px; overflow: hidden; position: relative; transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; }
+.hobby-card-accent { position: absolute; top: 0; left: 0; right: 0; height: 2px; transition: opacity 0.3s; }
+.hobby-card-header { background: rgba(0,245,255,0.04); padding: 14px 20px; display: flex; align-items: center; gap: 10px; }
+.hobby-card-title  { font-family: 'Orbitron', monospace; font-size: 13px; font-weight: 700; letter-spacing: 3px; transition: text-shadow 0.3s; }
+.hobby-items     { padding: 8px 0; }
+.hobby-item      { display: flex; align-items: center; gap: 14px; padding: 11px 20px; transition: background 0.2s; }
+.hobby-item:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.03); }
+.hobby-item:hover { background: rgba(0,245,255,0.04); }
+.hobby-item-num  { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text-dim); width: 18px; text-align: right; flex-shrink: 0; }
+.hobby-item-icon { display: flex; align-items: center; flex-shrink: 0; color: var(--text-dim); }
+.hobby-item-body { min-width: 0; }
+.hobby-item-name { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.2; }
+.hobby-item-sub  { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 1px; margin-top: 2px; }
 
-/* ─── GITHUB LINK (ProjectsSection) ─────────────────────── */
-.github-link { transition: text-shadow 0.3s; }
-.github-link:hover { text-shadow: var(--glow-cyan); }
+/* ─── CONTACT ────────────────────────────────────────────── */
+.contact-grid        { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.contact-blurb       { font-size: 16px; color: var(--text); line-height: 1.85; margin-bottom: 36px; font-weight: 300; }
+.contact-links       { display: flex; flex-direction: column; gap: 14px; }
+.contact-link-icon   { width: 36px; display: flex; align-items: center; justify-content: center; color: var(--cyan); flex-shrink: 0; }
+.contact-link-meta   { display: flex; flex-direction: column; }
+.contact-link-type   { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; }
+.contact-link-label  { font-size: 14px; font-weight: 600; color: var(--cyan); transition: text-shadow 0.3s; }
+.contact-link:hover .contact-link-label { text-shadow: var(--glow-cyan); }
+
+/* ─── FOOTER ─────────────────────────────────────────────── */
+.footer        { background: var(--dark); border-top: 1px solid rgba(0,245,255,0.08); padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer-inner  { max-width: 1200px; width: 100%; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-text   { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--text-dim); }
+.footer-brand  { letter-spacing: 2px; }
+.footer-credit { letter-spacing: 1px; }
+
+/* ─── DOT NAV ────────────────────────────────────────────── */
+.dotnav       { position: fixed; right: 28px; top: 50%; transform: translateY(-50%); z-index: 5000; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.dotnav-line  { position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); width: 1px; background: linear-gradient(to bottom, transparent, rgba(0,245,255,0.2), transparent); pointer-events: none; }
+.dotnav-item  { position: relative; display: flex; align-items: center; }
+.dotnav-label { position: absolute; right: 24px; font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; white-space: nowrap; pointer-events: none; }
 
 /* ─── HERO KEYFRAMES ─────────────────────────────────────── */
 @keyframes grid-drift {
@@ -392,21 +525,14 @@ section {
 /* ─── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 768px) {
   section { padding: 100px 24px; }
+  #hero   { padding: 0 24px; }
 
-  .about-grid-responsive {
-    grid-template-columns: 1fr !important;
-    gap: 40px !important;
+  .about-grid, .skills-grid, .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 
-  .skills-layout-responsive {
-    grid-template-columns: 1fr !important;
-    gap: 40px !important;
-  }
-
-  .contact-layout-responsive {
-    grid-template-columns: 1fr !important;
-    gap: 40px !important;
-  }
-
-  #projects, #hobbies, #contact { padding: 100px 24px !important; }
+  .corner-tl, .corner-tr { top: 40px; }
+  .corner-tl, .corner-bl { left: 24px; }
+  .corner-tr, .corner-br { right: 24px; }
 }
