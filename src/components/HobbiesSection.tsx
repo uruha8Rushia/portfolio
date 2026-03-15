@@ -5,7 +5,7 @@ import SectionHeader from './SectionHeader'
 import { IoFootball, IoBasketball, IoTrainSharp } from 'react-icons/io5'
 import { GiShuttlecock, GiVolleyballBall, GiSpiderWeb, GiSwordsEmblem, GiKatana, GiAk47, GiCrosshair, GiStoneWall , GiFist, GiVikingHelmet } from 'react-icons/gi'
 import { BsController, BsTv } from 'react-icons/bs'
-import { FaHeart, FaRunning } from 'react-icons/fa'
+import { FaHeart, FaRunning, FaSpotify } from 'react-icons/fa'
 
 /* ── HOBBY DATA ──────────────────────────────────────── */
 const HOBBIES: {
@@ -142,15 +142,50 @@ export default function HobbiesSection() {
 
         <SectionHeader label="// 04. OFF-DUTY" title="HOBBIES" inView={inView} />
 
-        {/* 4-card grid */}
+        {/* hobby cards grid */}
         <div className="hobbies-grid">
           {HOBBIES.map((h, i) => (
             <HobbyCard key={h.id} hobby={h} index={i} inView={inView} />
           ))}
         </div>
+
+        <motion.div
+          className="spotify-embed-card"
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.75, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          <div className="spotify-embed-header">
+            <FaSpotify size={18} />
+            <span>CURRENT ALBUM PICK</span>
+          </div>
+
+          <iframe
+            className="spotify-iframe"
+            src="https://open.spotify.com/embed/playlist/2isX6bMke3WqX4vYNxEkWB?utm_source=generator"
+            width="100%"
+            height="352"
+            frameBorder={0}
+            allowFullScreen
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Spotify album embed"
+          />
+        </motion.div>
       </div>
 
 
     </section>
   )
 }
+{/* <iframe 
+  data-testid="embed-iframe" 
+  style="border-radius:12px" 
+  src="https://open.spotify.com/embed/album/0eYZtVRBgZDpEibSKVri8P?utm_source=generator" 
+  width="100%" 
+  height="352" 
+  frameBorder="0" 
+  allowfullscreen="" 
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+  loading="lazy">
+</iframe> */}

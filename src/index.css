@@ -487,6 +487,29 @@ section {
 .hobby-item-body { min-width: 0; }
 .hobby-item-name { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.2; }
 .hobby-item-sub  { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 1px; margin-top: 2px; }
+.spotify-embed-card {
+  margin-top: 28px;
+  background: rgba(7,13,26,0.85);
+  border: 1px solid rgba(0,245,255,0.12);
+  border-radius: 4px;
+  padding: 18px;
+}
+.spotify-embed-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: var(--cyan);
+  font-family: 'Orbitron', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+.spotify-iframe {
+  width: 100%;
+  height: 352px;
+  border: 0;
+  border-radius: 12px;
+}
 
 /* ─── CONTACT ────────────────────────────────────────────── */
 .contact-grid        { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
